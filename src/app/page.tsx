@@ -4,21 +4,23 @@ import { EliminarBoton } from '@/components/EliminarBoton'
 import { EditarTareaForm } from '@/components/EditarTareaForm'
 import { FiltroTareas } from '@/components/FiltroTareas'
 
-export default async function Page({
-  searchParams
-}: {
-  searchParams: { estado?: string; asignado?: string }
-}) {
+type PageProps = {
+  searchParams?: Record<string, string | string[] | undefined>
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  const estado = searchParams?.estado as string | undefined
+  const asignado = searchParams?.asignado as string | undefined
+
   let tareas = await obtenerTareas()
 
-  if (searchParams.estado) {
-    tareas = tareas.filter(t => t.estado === searchParams.estado)
+  if (estado) {
+    tareas = tareas.filter(t => t.estado === estado)
   }
 
-  if (searchParams.asignado) {
-    const asignadoLower = searchParams.asignado.toLowerCase()
+  if (asignado) {
     tareas = tareas.filter(t =>
-      t.asignadoA?.toLowerCase().includes(asignadoLower)
+      t.asignadoA?.toLowerCase().includes(asignado.toLowerCase())
     )
   }
 
