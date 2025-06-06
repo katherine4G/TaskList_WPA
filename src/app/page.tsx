@@ -4,9 +4,13 @@ import { EliminarBoton } from '@/components/EliminarBoton'
 import { EditarTareaForm } from '@/components/EditarTareaForm'
 import { FiltroTareas } from '@/components/FiltroTareas'
 
-export default async function Page({ searchParams }: {
-  searchParams?: { [key: string]: string | string[] | undefined }
-}) {
+interface Props {
+  searchParams?: {
+    [key: string]: string | string[] | undefined
+  }
+}
+
+export default async function Page({ searchParams }: Props) {
   const estado = searchParams?.estado as string | undefined
   const asignado = searchParams?.asignado as string | undefined
 
