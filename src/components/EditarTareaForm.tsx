@@ -35,7 +35,7 @@ export function EditarTareaForm({ tarea }: { tarea: Tarea }) {
     <form onSubmit={handleEdit} className="space-y-2 text-sm mt-2">
       <input value={titulo} onChange={e => setTitulo(e.target.value)} className="border p-1 w-full" />
       <input value={asignadoA} onChange={e => setAsignadoA(e.target.value)} className="border p-1 w-full" />
-      <select value={estado} onChange={e => setEstado(e.target.value as any)} className="border p-1 w-full">
+      <select value={estado} onChange={e => setEstado(e.target.value as 'pendiente' | 'en progreso' | 'completada')} className="border p-1 w-full">
         <option value="pendiente">Pendiente</option>
         <option value="en progreso">En progreso</option>
         <option value="completada">Completada</option>

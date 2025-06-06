@@ -1,10 +1,10 @@
 'use server'
 
 import { z } from 'zod'
-import { Tarea, Estado } from '@/lib/types'
+import { Tarea} from '@/lib/types'
 
 // Simulación de base de datos temporal en memoria
-let tareas: Tarea[] = []
+const tareas: Tarea[] = []
 
 // Esquema Zod para validar las tareas
 const tareaSchema = z.object({

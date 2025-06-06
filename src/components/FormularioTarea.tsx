@@ -26,7 +26,7 @@ export default function FormularioTarea() {
       startTransition(() => {
         router.refresh()
       })
-    } catch (err) {
+    } catch {
       setMensaje('❌ Error al crear la tarea')
     }
   }
@@ -55,7 +55,7 @@ export default function FormularioTarea() {
 
       <select
         value={estado}
-        onChange={e => setEstado(e.target.value as any)}
+        onChange={e => setEstado(e.target.value as 'pendiente' | 'en progreso' | 'completada')}
         className="w-full border p-2 rounded"
       >
         <option value="pendiente">Pendiente</option>
