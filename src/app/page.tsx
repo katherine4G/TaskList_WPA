@@ -1,27 +1,33 @@
-import FormularioTarea from '@/components/FormularioTarea'
-import { obtenerTareas } from './api/tareas/action'
-import { EliminarBoton } from '@/components/EliminarBoton'
-import { EditarTareaForm } from '@/components/EditarTareaForm'
-import { FiltroTareas } from '@/components/FiltroTareas'
+import { Metadata } from 'next';
+import { obtenerTareas } from './api/tareas/action';
+import FormularioTarea from '@/components/FormularioTarea';
+import { FiltroTareas } from '@/components/FiltroTareas';
+import { EditarTareaForm } from '@/components/EditarTareaForm';
+import { EliminarBoton } from '@/components/EliminarBoton';
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) {
-  const estado = searchParams.estado as string | undefined
-  const asignado = searchParams.asignado as string | undefined
+export const metadata: Metadata = {
+  title: 'Gestor de Tareas',
+  description: 'Aplicación para gestionar tareas',
+};
 
-  let tareas = await obtenerTareas()
+interface PageProps {
+  searchParams?: Record<string, string | string[]>;
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  const estado = searchParams?.estado as string | undefined;
+  const asignado = searchParams?.asignado as string | undefined;
+
+  let tareas = await obtenerTareas();
 
   if (estado) {
-    tareas = tareas.filter((t) => t.estado === estado)
+    tareas = tareas.filter((t) => t.estado === estado);
   }
 
   if (asignado) {
     tareas = tareas.filter((t) =>
       t.asignadoA?.toLowerCase().includes(asignado.toLowerCase())
-    )
+    );
   }
 
   return (
@@ -34,7 +40,7 @@ export default async function Page({
           {tareas.length === 0 ? (
             <li className="text-gray-500">No hay tareas con ese filtro.</li>
           ) : (
-            tareas.map(t => (
+            tareas.map((t) => (
               <li key={t.id} className="p-3 border rounded shadow-sm bg-white">
                 <div className="flex justify-between items-center">
                   <div className="font-semibold">{t.titulo}</div>
@@ -51,5 +57,5 @@ export default async function Page({
         </ul>
       </section>
     </main>
-  )
+  );
 }
