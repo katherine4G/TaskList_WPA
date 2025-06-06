@@ -4,11 +4,9 @@ import { EliminarBoton } from '@/components/EliminarBoton'
 import { EditarTareaForm } from '@/components/EditarTareaForm'
 import { FiltroTareas } from '@/components/FiltroTareas'
 
-type PageProps = {
-  searchParams?: Record<string, string | string[] | undefined>
-}
-
-export default async function Page({ searchParams }: PageProps) {
+export default async function Page({ searchParams }: {
+  searchParams?: { [key: string]: string | string[] | undefined }
+}) {
   const estado = searchParams?.estado as string | undefined
   const asignado = searchParams?.asignado as string | undefined
 
