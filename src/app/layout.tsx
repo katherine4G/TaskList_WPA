@@ -18,7 +18,6 @@ export const metadata: Metadata = {
   description: 'Aplicación PWA para gestionar tareas',
 }
 
-// ✅ ESTA FIRMA ES CLAVE: garantiza tipado estándar para App Router
 export default function RootLayout({
   children,
 }: {
