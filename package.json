@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "next": "15.3.3",
+    "next-pwa": "^5.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "zod": "^3.25.55"
@@ -25,5 +26,4 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   }
-  
 }
