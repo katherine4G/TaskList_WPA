@@ -7,7 +7,7 @@ import { FiltroTareas } from '@/components/FiltroTareas'
 export default async function Page({
   searchParams,
 }: {
-  searchParams?: { [key: string]: string | string[] }
+  searchParams?: Record<string, string | string[] | undefined>
 }) {
   const estado = searchParams?.estado as string | undefined
   const asignado = searchParams?.asignado as string | undefined
