@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
 export default async function Page({
   searchParams,
 }: {
-  searchParams?: { [key: string]: string | string[] }
+  searchParams: { [key: string]: string | string[] }
 }) {
   const estado = searchParams?.estado as string | undefined
   const asignado = searchParams?.asignado as string | undefined
