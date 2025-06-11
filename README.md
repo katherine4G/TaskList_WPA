@@ -45,6 +45,32 @@ public/
 
 ---
 
+##  Cómo probarlo localmente
+
+```bash
+npm install
+npm run dev
+```
+
+Y abrí: [http://localhost:3000](http://localhost:3000)
+
+Para compilar la versión de producción:
+
+```bash
+npm run build
+npm run start
+```
+
+---
+
+##  Extras
+
+- `src/app/api/tareas/action.ts`: maneja la lógica y validación con Server Actions (`'use server'`).
+- `src/app/api/tareas/route.ts`: hace posible obtener tareas con `fetch` desde componentes cliente.
+- `ListaTareas` escucha eventos globales (`tarea-creada`, `tarea-actualizada`) para refrescar automáticamente.
+
+---
+
 ##  Preguntas del grupo
 
 ### 1. **Integrantes del grupo**
@@ -98,31 +124,3 @@ Esto nos permitió mantenerlo simple, reactivo y compatible con Server Actions.
 
 ---
 
-##  Cómo probarlo localmente
-
-```bash
-npm install
-npm run dev
-```
-
-Y abrí: [http://localhost:3000](http://localhost:3000)
-
-Para compilar la versión de producción:
-
-```bash
-npm run build
-npm run start
-```
-
----
-
-##  Extras
-
-- `src/app/api/tareas/action.ts`: maneja la lógica y validación con Server Actions (`'use server'`).
-- `src/app/api/tareas/route.ts`: hace posible obtener tareas con `fetch` desde componentes cliente.
-- `ListaTareas` escucha eventos globales (`tarea-creada`, `tarea-actualizada`) para refrescar automáticamente.
-
----
-
- **Deploy final:**  
-https://task-list-wpa-aaeu.vercel.app/
