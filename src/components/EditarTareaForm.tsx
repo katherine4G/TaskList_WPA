@@ -16,11 +16,13 @@ export function EditarTareaForm({ tarea }: { tarea: Tarea }) {
   const handleEdit = async (e: React.FormEvent) => {
     e.preventDefault()
     await editarTarea(tarea.id, { titulo, estado, asignadoA })
-
+    setEditando(false)
     startTransition(() => {
       router.refresh()
+      window.dispatchEvent(new Event('tarea-actualizada'))
+      window.location.reload()
     })
-    setEditando(false)
+    
   }
 
   if (!editando) {

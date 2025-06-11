@@ -1,7 +1,8 @@
+//src/app/tareas/actions.ts
 'use server'
 
 import { z } from 'zod'
-import { Tarea} from '@/lib/types'
+import { Tarea } from '@/lib/types'
 
 // Simulación de base de datos temporal en memoria
 const tareas: Tarea[] = []

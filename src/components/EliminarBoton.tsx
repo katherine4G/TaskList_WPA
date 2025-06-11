@@ -12,6 +12,8 @@ export function EliminarBoton({ id }: { id: string }) {
     await eliminarTarea(id)
     startTransition(() => {
       router.refresh()
+      window.dispatchEvent(new Event('tarea-actualizada'))
+      window.location.reload()
     })
   }
 

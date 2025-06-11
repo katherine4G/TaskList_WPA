@@ -1,3 +1,4 @@
+//src/components/FormularioTarea.tsx
 'use client'
 
 import { useState, useTransition } from 'react'
@@ -22,9 +23,10 @@ export default function FormularioTarea() {
       setEstado('pendiente')
       setMensaje('✅ Tarea creada con éxito')
 
-      // Refrescar página sin recargar todo
+      // Refrescar página 
       startTransition(() => {
         router.refresh()
+        window.location.reload()
       })
     } catch {
       setMensaje('❌ Error al crear la tarea')
