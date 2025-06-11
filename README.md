@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Task List WPA
 
-## Getting Started
+Una aplicación web progresiva (PWA) desarrollada en Next.js 15 con TypeScript, que permite la gestión de tareas en tiempo real con filtros por estado y persona asignada. La app puede instalarse, funciona offline y se refresca automáticamente al crear, editar o eliminar tareas.
 
-First, run the development server:
+**Deploy en Vercel:**  
+https://task-list-wpa-aaeu.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Tecnologías usadas
+
+- **Next.js 15** (App Router, Server Actions)
+- **React 19** (con `useTransition`, `useSearchParams`, `useState`)
+- **TypeScript** (tipado estricto)
+- **Tailwind CSS** (estilizado rápido y responsive)
+- **Zod** (validación de datos)
+- **Service Worker** + `manifest.json` (modo PWA con instalación y caché offline)
+
+---
+
+##  Estructura del proyecto
+
+```
+src/
+├── app/
+│   ├── api/tareas/             ← Server Actions y API route
+│   │   ├── action.ts           ← CRUD de tareas con validación
+│   │   └── route.ts            ← API para uso en componentes cliente
+│   ├── layout.tsx              ← Layout general y PWA config
+│   └── page.tsx                ← Página principal (con Server + Client components)
+├── components/
+│   ├── FormularioTarea.tsx     ← Crear nueva tarea
+│   ├── EditarTareaForm.tsx     ← Editar tarea
+│   ├── EliminarBoton.tsx       ← Eliminar tarea
+│   ├── FiltroTareas.tsx        ← Filtros dinámicos
+│   ├── ListaTareas.tsx         ← Lista de tareas dinámica
+│   └── RegistrarSW.tsx         ← Registro del Service Worker
+├── lib/
+│   └── types.ts                ← Tipos de datos globales
+public/
+├── icons/                      ← Íconos PWA
+├── manifest.json              ← Metadatos PWA
+└── sw.js                       ← Service Worker offline
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+##  Preguntas del grupo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. **Integrantes del grupo**
 
-## Learn More
+- Katherine Guatemala  
+- Isaac Artavia Salazar  
+- Joseph Quirós  
+- Kaysha Carrillo
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2.  **¿Qué técnica utilizaste para manejar el estado y por qué?**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Usamos **`useState`** para manejar el estado local de formularios, inputs y la lista de tareas en el cliente. También usamos **`useEffect`** y eventos personalizados con `window.dispatchEvent()` para comunicar entre componentes sin necesidad de una librería externa.
 
-## Deploy on Vercel
+Esto nos permitió mantenerlo simple, reactivo y compatible con Server Actions.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3.  **¿Cómo evitaste renders y cálculos innecesarios?**
+
+- Aplicamos filtros (`estado`, `asignadoA`) solo cuando cambian los `searchParams`.
+- Usamos `useTransition()` en formularios para no bloquear la UI al enviar datos.
+- Separación clara entre componentes clientes y server (como `FormularioTarea` vs `ListaTareas`) para aprovechar los beneficios de cada uno.
+
+---
+
+### 4.  **¿Cómo organizaste la lógica de carga y manejo de errores?**
+
+- El manejo de errores en formularios se realiza con `try/catch` y validaciones con **Zod**.
+- Para la carga de tareas, usamos una función `fetchTareas()` reutilizable.
+- Al editar o eliminar, usamos `startTransition()` para hacer `router.refresh()` y evitar que la UI se congele.
+
+---
+
+### 5.  **¿Qué decisiones tomaste respecto a la estructura y tipado de los datos?**
+
+- Centralizamos los tipos en `lib/types.ts` para mantener consistencia.
+- Usamos un tipo `Tarea` con propiedades como `titulo`, `estado`, `asignadoA`, `id`, etc.
+- Validamos la estructura de entrada con **Zod** antes de aceptar datos en los Server Actions.
+
+---
+
+### 6.  **¿Cómo garantizamos que la experiencia del usuario fuera fluida?**
+
+- El formulario no recarga la página.
+- Las tareas se actualizan automáticamente al crearlas, editarlas o eliminarlas.
+- Los filtros responden instantáneamente con `router.push()` y `useSearchParams()`.
+- La app es **instalable y funciona offline** gracias al Service Worker.
+- El diseño responsivo con Tailwind garantiza usabilidad en desktop y móvil.
+
+---
+
+##  Cómo probarlo localmente
+
+```bash
+npm install
+npm run dev
+```
+
+Y abrí: [http://localhost:3000](http://localhost:3000)
+
+Para compilar la versión de producción:
+
+```bash
+npm run build
+npm run start
+```
+
+---
+
+##  Extras
+
+- `src/app/api/tareas/action.ts`: maneja la lógica y validación con Server Actions (`'use server'`).
+- `src/app/api/tareas/route.ts`: hace posible obtener tareas con `fetch` desde componentes cliente.
+- `ListaTareas` escucha eventos globales (`tarea-creada`, `tarea-actualizada`) para refrescar automáticamente.
+
+---
+
+ **Deploy final:**  
+https://task-list-wpa-aaeu.vercel.app/
