@@ -1,5 +1,5 @@
 {
-  "name": "Mi Aplicaci\u00f3n PWA",
+  "name": "Task List PWA",
   "short_name": "MiPWA",
   "start_url": "/",
   "display": "standalone",
